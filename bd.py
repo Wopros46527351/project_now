@@ -15,8 +15,8 @@ def make_push(product_name, date, product_number, product_price, url):
     Args:
         product_name (str): name of the product
         date (str): date of request
-        product_number (int): quantity of the product
-        product_price (int): current price
+        product_number (float): quantity of the product
+        product_price (float): current price
         url (str): just url
 
     Returns:
@@ -27,7 +27,7 @@ def make_push(product_name, date, product_number, product_price, url):
     push = {
         "product_name": product_name,
         "date": date,
-        'product_number': product_name,
+        'product_number': product_number,
         'product_price': product_price,
         'url': url
     }
