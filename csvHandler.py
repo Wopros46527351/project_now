@@ -16,6 +16,7 @@ def write_data(file,name,prices,counts):
         file.write(f"{price},")
     else:
         file.write("\n")
+    file.write(",")
     file.write(f"Count,")
     for count in counts:
         file.write(f"{count},")
