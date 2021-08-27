@@ -1,5 +1,13 @@
 
 def create_csv(dates):
+    """Creates csv file with set data string on top
+
+    Args:
+        dates (array): array of dates in file
+
+    Returns:
+        file: csv text file
+    """
     file = open("result.csv","w",encoding='utf-8')
     file.write("Name,")
     file.write("Price/Count,")
@@ -10,6 +18,14 @@ def create_csv(dates):
     return file
 
 def write_data(file,name,prices,counts):
+    """writes data to file
+
+    Args:
+        file (file): csv file to write to
+        name (str): name of product
+        prices (array): int array of prices
+        counts (array): int array of counts
+    """
     file.write(f"{name},")
     file.write(f"Price,")
     for price in prices:

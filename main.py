@@ -1,5 +1,6 @@
 import csvHandler
 import scraper
+import bd
 f = open('target.txt', 'r')
 while True:
     data = f.readline()
@@ -8,8 +9,8 @@ while True:
         break
     else:
         print(data)
-        price,count = scraper.get_info(data)
-        input(f"price:{price}\ncount:{count}\nPress ENTER")
+        price,count,name = scraper.get_info(data)
+        input(f"name:{name}\nprice:{price}\ncount:{count}\nPress ENTER")
         #вызов функции
 
 name = "name1"
