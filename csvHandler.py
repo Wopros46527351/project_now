@@ -9,11 +9,16 @@ def create_csv(dates):
         file.write("\n")
     return file
 
-def write_data(file,name,prices,count):
+def write_data(file,name,prices,counts):
     file.write(f"{name},")
     file.write(f"Price,")
     for price in prices:
         file.write(f"{price},")
+    else:
+        file.write("\n")
+    file.write(f"Count,")
+    for count in counts:
+        file.write(f"{count},")
     else:
         file.write("\n")
             
