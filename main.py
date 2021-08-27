@@ -1,4 +1,4 @@
-import csv
+import csvHandler
 
 f = open('target.txt', 'r')
 while True:
@@ -14,3 +14,7 @@ name = "name1"
 data = ['01.01.2201','02.01.2201','03.01.2201']
 price = [200,250,300]
 count = [100,80,120]
+
+file = csvHandler.create_csv(data)
+csvHandler.write_data(file,name,price,count)
+file.close()
