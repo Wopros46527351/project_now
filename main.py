@@ -3,6 +3,7 @@ import scraper
 import bd
 import datetime
 f = open('target.txt', 'r')
+db = bd.connect_db()
 while True:
     data = f.readline()
     data = data.replace("\n","")
@@ -11,11 +12,10 @@ while True:
     else:
         print(data)
         price,count,name = scraper.get_info(data)
-        #input(f"name:{name}\nprice:{price}\ncount:{count}\nPress ENTER")
         #вызов функции
-        db = bd.connect_db()
-        print(str(datetime.datetime.now().strftime("%d-%m-%Y")))
-        #bd.make_push(db, name, str(datetime.datetime.now().strftime("%d-%m-%Y"), )
+        date = str(datetime.datetime.now().strftime("%d-%m-%Y"))
+        bd.make_push(db, name, str(datetime.datetime.now().strftime("%d-%m-%Y")), count, price, data)
+        input(f"name:{name}\nprice:{price}\ncount:{count}\nPress ENTER")
 
 name = "name1"
 data = ['01.01.2201','02.01.2201','03.01.2201']

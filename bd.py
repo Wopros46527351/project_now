@@ -2,11 +2,11 @@ from pymongo import MongoClient
 # pprint library is used to make the output look more pretty
 from pprint import pprint
 # connect to MongoDB, change the << MONGODB URL >> to reflect your own connection string
-client = MongoClient("mongodb+srv://Biba_buba_13:Vgfgh4335RTF@huyaster.bi6ms.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+'''client = MongoClient("mongodb+srv://Biba_buba_13:Vgfgh4335RTF@huyaster.bi6ms.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 db = client.test
 # Issue the serverStatus command and print the results
 serverStatusResult=db.command("serverStatus")
-pprint(serverStatusResult)
+pprint(serverStatusResult)'''
 
 
 def make_push(db,product_name, date, product_number, product_price, url):
