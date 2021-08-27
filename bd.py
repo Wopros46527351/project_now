@@ -58,9 +58,10 @@ def push_date(db,date):
         db.meta.update_one({'name':"dates"},{"$push":{'dates':date}})
 
 def connect_db():
-    client = MongoClient("mongodb+srv://Biba_buba_13:Vgfgh4335RTF@huyaster.bi6ms.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+    client = MongoClient("mongodb+srv://admin:admin@arttechtestcluster.d7bmu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
     db = client.test
-    return db    
+    return db 
+"""   
 #тут подтягиваем в переменные данные
 product_name='rere'
 date='02.07.2021'
@@ -85,7 +86,7 @@ db.product_mstator.update_one({'product_name':product_name },  {'$push': {'date'
 db.product_mstator.update_one({'product_name':product_name }, {'$push': {'product_number':product_number}}) 
 db.product_mstator.update_one({'product_name':product_name }, {'$push': {'product_price':product_price}})
 
-
+"""
 
     
 
