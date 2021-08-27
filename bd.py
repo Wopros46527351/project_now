@@ -31,7 +31,7 @@ def make_push(product_name, date, product_number, product_price, url):
         'product_price': product_price,
         'url': url
     }
-    db.product_mstator.insert_one(push)
+    db.meta.insert_one(push)
     return None
 
 
@@ -45,7 +45,7 @@ def make_pull(url):
     """
     client = MongoClient("mongodb+srv://Biba_buba_13:Vgfgh4335RTF@huyaster.bi6ms.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
     db = client.test
-    result = db.product_mstator.find_one({"url":url})
+    result = db.meta.find_one({"url":url})
     return result
 
 
