@@ -15,7 +15,7 @@ def get_info(url):
     price = soup.find_all("span", {"class":'ordering__value'})[0]
     count = soup.find_all("span", {"class":'item__avail item__avail_available item__avail_float'})[0]
     name = soup.find("h1", itemprop='name')
-    name = name.text
+    name = name.text.replace(",",".")
     count_transformed = ""
     for c in count.text:
         if c in "0123456789":

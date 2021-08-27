@@ -1,4 +1,3 @@
-
 def create_csv(dates):
     """Creates csv file with set data string on top
 
@@ -17,7 +16,7 @@ def create_csv(dates):
         file.write("\n")
     return file
 
-def write_data(file,name,prices,counts):
+def write_data(file,name,prices,counts,dates_all,dates_product):
     """writes data to file
 
     Args:
@@ -26,18 +25,25 @@ def write_data(file,name,prices,counts):
         prices (array): int array of prices
         counts (array): int array of counts
     """
+    name = name.replace(',', '.')
     file.write(f"{name},")
     file.write(f"Price,")
-    for price in prices:
-        file.write(f"{price},")
+    index =0
+    for date in dates_all:
+        if dates_product[index] == date:
+            file.write(f"{prices[index]},")
+            index+=1
     else:
         file.write("\n")
-    file.write(",")
+    file.write(f",")
     file.write(f"Count,")
-    for count in counts:
-        file.write(f"{count},")
+    index =0
+    for date in dates_all:
+        if dates_product[index] == date:
+            file.write(f"{counts[index]},")
+            index+=1
     else:
-        file.write("\n")
+        file.write("\n")    
             
 if __name__ == "__main__":
     print("This file is not supposed to be launched by user.Press ENTER to exit")

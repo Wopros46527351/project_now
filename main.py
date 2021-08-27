@@ -4,6 +4,7 @@ import bd
 import datetime
 f = open('target.txt', 'r')
 db = bd.connect_db()
+date = str(datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S"))
 while True:
     data = f.readline()
     data = data.replace("\n","")
@@ -13,15 +14,18 @@ while True:
         print(data)
         price,count,name = scraper.get_info(data)
         #вызов функции
-        date = str(datetime.datetime.now().strftime("%d-%m-%Y"))
-        bd.make_push(db, name, str(datetime.datetime.now().strftime("%d-%m-%Y")), count, price, data)
-        input(f"name:{name}\nprice:{price}\ncount:{count}\nPress ENTER")
+        bd.make_push(db, name, date, count, price, data)
+        print(f"name:{name}\nprice:{price}\ncount:{count}\nPress ENTER")
+bd.push_meta(db, date)
+dates = bd.get_dates(db)
+urls = bd.get_urls(db)
+print(dates, urls)
 
-name = "name1"
-data = ['01.01.2201','02.01.2201','03.01.2201']
-price = [200,250,300]
-counts = [100,80,120]
 
-file = csvHandler.create_csv(data)
-csvHandler.write_data(file,name,price,counts)
+
+file = csvHandler.create_csv(dates)
+for url in urls:
+    result = bd.make_pull(db, url)
+    csvHandler.write_data(file, result["product_name"], result["product_price"], result["product_number"],dates,result['date'])
+#csvHandler.write_data(file,name,price,count)
 file.close()

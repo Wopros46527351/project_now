@@ -51,11 +51,38 @@ def make_pull(db,url):
     result = db.product_mstator.find_one({"url":url})
     return result
 
-def push_date(db,date):
+def push_meta(db,date):
     if db.meta.find({'name':"dates"}).count()==0:
         db.meta.insert_one({'name':"dates",'dates':[date]})
     else:
         db.meta.update_one({'name':"dates"},{"$push":{'dates':date}})
+    urls = [e['url'] for e in db.product_mstator.find()]
+    if db.meta.find({'name':"urls"}).count()==0:
+        db.meta.insert_one({'name':"urls",'urls':urls})
+    else:
+        db.meta.update_one({'name':"urls"},{"$set":{'urls':urls}})
+        
+
+def get_dates(db):
+    """get all dates from meta
+
+    Args:
+        db (db): database
+    Returns:
+        dates (dict): all dates
+    """
+    return db.meta.find_one({'name':"dates"})['dates']
+
+
+def get_urls(db):
+    """get all urls from meta
+
+    Args:
+        db (db): database
+    Returns:
+        urls (dict): all dates
+    """
+    return db.meta.find_one({'name':"urls"})['urls']
 
 def connect_db():
     client = MongoClient("mongodb+srv://admin:admin@arttechtestcluster.d7bmu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
