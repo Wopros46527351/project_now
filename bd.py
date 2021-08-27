@@ -9,7 +9,7 @@ serverStatusResult=db.command("serverStatus")
 pprint(serverStatusResult)
 
 
-def make_push(product_name, date, product_number, product_price, url):
+def make_push(db,product_name, date, product_number, product_price, url):
     """make push into database
 
     Args:
@@ -22,20 +22,25 @@ def make_push(product_name, date, product_number, product_price, url):
     Returns:
         Nothing
     """
-    client = MongoClient("mongodb+srv://Biba_buba_13:Vgfgh4335RTF@huyaster.bi6ms.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-    db = client.test
-    push = {
-        "product_name": product_name,
-        "date": date,
-        'product_number': product_number,
-        'product_price': product_price,
-        'url': url
-    }
-    db.meta.insert_one(push)
+    if db.product_mstator.find({'url':url}).count()==0:
+        push = {
+            "product_name": product_name,
+            "date": [date],
+            'product_number': [product_number],
+            'product_price': [product_price],
+            'url': url
+        }
+        db.product_mstator.insert_one(push)
+    else:
+        db.product_mstator.update_one({'url':url},{'$push': {
+            'date':date,
+            'product_number':product_number,
+            'product_price':product_price
+        }})
     return None
 
 
-def make_pull(url):
+def make_pull(db,url):
     """make pull request from database
 
     Args:
@@ -43,12 +48,19 @@ def make_pull(url):
     Returns:
         result (dict): data about the product
     """
-    client = MongoClient("mongodb+srv://Biba_buba_13:Vgfgh4335RTF@huyaster.bi6ms.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-    db = client.test
-    result = db.meta.find_one({"url":url})
+    result = db.product_mstator.find_one({"url":url})
     return result
 
+def push_date(db,date):
+    if db.meta.find({'name':"dates"}).count()==0:
+        db.meta.insert_one({'name':"dates",'dates':[date]})
+    else:
+        db.meta.update_one({'name':"dates"},{"$push":{'dates':date}})
 
+def connect_db():
+    client = MongoClient("mongodb+srv://Biba_buba_13:Vgfgh4335RTF@huyaster.bi6ms.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+    db = client.test
+    return db    
 #тут подтягиваем в переменные данные
 product_name='rere'
 date='02.07.2021'
